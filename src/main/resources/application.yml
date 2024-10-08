@@ -8,6 +8,6 @@ spring:
     console:
       enabled: true
   profiles:
-    active=loadInitialData:
+    active: loadInitialData
 server:
    port: 8081
