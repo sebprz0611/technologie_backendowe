@@ -36,6 +36,16 @@ class UserController {
                 .toList();
     }
 
+    @GetMapping("/email")
+    public ResponseEntity<List<UserDto>> getUserByEmail(@RequestParam String email) {
+        Optional<User> user = userService.getUserByEmail(email);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(List.of(userMapper.toDto(user.get())));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/search")
     public ResponseEntity<UserDto> getUserDetails(
             @RequestParam(required = false) Long id,
@@ -61,6 +71,14 @@ class UserController {
         return user.map(userMapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+        User user = userMapper.toEntity(userDto);
+        User createdUser = userService.createUser(user);
+        UserDto createdUserDto = userMapper.toDto(createdUser);
+        return ResponseEntity.status(201).body(createdUserDto);
     }
 
 }
