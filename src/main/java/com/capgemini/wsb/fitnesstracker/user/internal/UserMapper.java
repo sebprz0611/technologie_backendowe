@@ -14,8 +14,8 @@ class UserMapper {
                            user.getEmail());
     }
 
-    UserSimpleDTO toSimpleDTO(User user) {
-        return new UserSimpleDTO(user.getId(),
+    UserSimpleDto toSimpleDto(User user) {
+        return new UserSimpleDto(user.getId(),
                                 user.getFirstName(),
                                 user.getLastName());
     }
