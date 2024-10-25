@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Objects;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
 
 interface UserRepository extends JpaRepository<User, Long> {
 
@@ -12,6 +15,10 @@ interface UserRepository extends JpaRepository<User, Long> {
         return findAll().stream()
                         .filter(user -> Objects.equals(user.getEmail(), email))
                         .findFirst();
+
     }
+
+    @Query("SELECT u FROM User u WHERE LOWER(u.email) LIKE LOWER(CONCAT('%', :emailFragment, '%'))")
+    List<User> findByEmailContainingIgnoreCase(@Param("emailFragment") String emailFragment);
 
 }

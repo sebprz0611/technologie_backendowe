@@ -35,6 +35,14 @@ class UserController {
                 .toList();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        Optional<User> user = userService.getUser(id);
+        return user.map(userMapper::toDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/email")
     public ResponseEntity<List<UserDto>> getUserByEmail(@RequestParam String email) {
         Optional<User> user = userService.getUserByEmail(email);
@@ -67,6 +75,12 @@ class UserController {
         return user.map(userMapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search/email")
+    public ResponseEntity<List<UserEmailDto>> getUsersByEmailFragment(@RequestParam String emailFragment) {
+        List<UserEmailDto> users = userService.findUsersByEmailFragment(emailFragment);
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping

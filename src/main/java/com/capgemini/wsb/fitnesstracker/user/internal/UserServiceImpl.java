@@ -63,4 +63,12 @@ class UserServiceImpl implements UserService, UserProvider {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public List<UserEmailDto> findUsersByEmailFragment(String emailFragment) {
+        List<User> users = userRepository.findByEmailContainingIgnoreCase(emailFragment);
+        return users.stream()
+                .map(user -> new UserEmailDto(user.getId(), user.getEmail()))
+                .collect(Collectors.toList());
+    }
+
 }
