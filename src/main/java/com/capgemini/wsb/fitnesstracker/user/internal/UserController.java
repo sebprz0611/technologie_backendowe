@@ -6,7 +6,6 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -14,10 +13,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v1/users")
 @RequiredArgsConstructor
+
 class UserController {
 
     private final UserServiceImpl userService;
-
     private final UserMapper userMapper;
 
     @GetMapping
@@ -53,9 +52,7 @@ class UserController {
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) LocalDate birthdate,
             @RequestParam(required = false) String email) {
-
         Optional<User> user;
-
         if (id != null) {
             user = userService.getUser(id);
         } else if (firstName != null && lastName != null) {
@@ -67,7 +64,6 @@ class UserController {
         } else {
             return ResponseEntity.badRequest().build();
         }
-
         return user.map(userMapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -81,4 +77,13 @@ class UserController {
         return ResponseEntity.status(201).body(createdUserDto);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        if (userService.getUser(id).isPresent()) {
+            userService.deleteUser(id);
+            return ResponseEntity.noContent().build(); // Zwraca 204 No Content jeśli usunięcie się powiedzie
+        } else {
+            return ResponseEntity.notFound().build(); // Zwraca 404 Not Found, jeśli użytkownik o podanym ID nie istnieje
+        }
+    }
 }

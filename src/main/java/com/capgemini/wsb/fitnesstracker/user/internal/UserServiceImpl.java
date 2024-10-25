@@ -6,10 +6,11 @@ import com.capgemini.wsb.fitnesstracker.user.api.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +50,7 @@ class UserServiceImpl implements UserService, UserProvider {
                         user.getLastName().equalsIgnoreCase(lastName))
                 .findFirst();
     }
+
     @Override
     public Optional<User> getUserByBirthdate(final LocalDate birthdate) {
         return userRepository.findAll().stream()
@@ -56,4 +58,16 @@ class UserServiceImpl implements UserService, UserProvider {
                 .findFirst();
     }
 
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<UserIdEmailDto> findUsersByEmailFragment(String emailFragment) {
+        return userRepository.findByEmailContainingIgnoreCase(emailFragment)
+                .stream()
+                .map(user -> new UserIdEmailDto(user.getId(), user.getEmail()))
+                .collect(Collectors.toList());
+    }
 }
