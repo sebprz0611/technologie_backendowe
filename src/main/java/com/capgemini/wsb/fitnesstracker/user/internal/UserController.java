@@ -86,7 +86,17 @@ class UserController {
 
     @GetMapping("/older-than")
     public ResponseEntity<List<UserDto>> getUsersOlderThan(@RequestParam int age) {
-        List<User> users = userService.findUsersOlderThan(age);
+        LocalDate thresholdDate = LocalDate.now().minusYears(age);
+        List<User> users = userService.findUsersOlderThan(thresholdDate);
+        List<UserDto> userDtos = users.stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(userDtos);
+    }
+
+    @GetMapping("/older/{birthdate}")
+    public ResponseEntity<List<UserDto>> getUsersOlderThan(@PathVariable LocalDate birthdate) {
+        List<User> users = userService.findUsersOlderThan(birthdate);
         List<UserDto> userDtos = users.stream()
                 .map(userMapper::toDto)
                 .collect(Collectors.toList());

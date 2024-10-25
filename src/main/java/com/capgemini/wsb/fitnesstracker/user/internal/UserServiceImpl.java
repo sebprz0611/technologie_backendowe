@@ -72,10 +72,15 @@ class UserServiceImpl implements UserService, UserProvider {
     }
 
     @Override
-    public List<User> findUsersOlderThan(int age) {
-        LocalDate cutoffDate = LocalDate.now().minusYears(age);
+    public Optional<User> getUserByBirthdateBefore(LocalDate birthdate) {
         return userRepository.findAll().stream()
-                .filter(user -> user.getBirthdate().isBefore(cutoffDate))
+                .filter(user -> user.getBirthdate().isBefore(birthdate))
+                .findFirst();
+    }
+
+    public List<User> findUsersOlderThan(LocalDate thresholdDate) {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getBirthdate().isBefore(thresholdDate))
                 .collect(Collectors.toList());
     }
 

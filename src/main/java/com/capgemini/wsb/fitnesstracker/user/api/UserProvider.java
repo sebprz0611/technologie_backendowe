@@ -10,5 +10,5 @@ public interface UserProvider {
     List<User> findAllUsers();
     Optional<User> getUserByNameAndSurname(String firstName, String lastName);
     Optional<User> getUserByBirthdate(LocalDate birthdate);
-    List<User> findUsersOlderThan(int age);
+    Optional<User> getUserByBirthdateBefore(LocalDate birthdate);
 }
