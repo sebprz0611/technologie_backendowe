@@ -86,4 +86,5 @@ class UserController {
             return ResponseEntity.notFound().build(); // Zwraca 404 Not Found, jeśli użytkownik o podanym ID nie istnieje
         }
     }
+
 }
