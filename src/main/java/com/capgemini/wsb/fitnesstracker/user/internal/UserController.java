@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -81,6 +82,15 @@ class UserController {
     public ResponseEntity<List<UserEmailDto>> getUsersByEmailFragment(@RequestParam String emailFragment) {
         List<UserEmailDto> users = userService.findUsersByEmailFragment(emailFragment);
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/older-than")
+    public ResponseEntity<List<UserDto>> getUsersOlderThan(@RequestParam int age) {
+        List<User> users = userService.findUsersOlderThan(age);
+        List<UserDto> userDtos = users.stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(userDtos);
     }
 
     @PostMapping
