@@ -84,4 +84,25 @@ class UserServiceImpl implements UserService, UserProvider {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public User updateUser(Long userId, User updatedUser) {
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (updatedUser.getFirstName() != null) {
+            existingUser.setFirstName(updatedUser.getFirstName());
+        }
+        if (updatedUser.getLastName() != null) {
+            existingUser.setLastName(updatedUser.getLastName());
+        }
+        if (updatedUser.getBirthdate() != null) {
+            existingUser.setBirthdate(updatedUser.getBirthdate());
+        }
+        if (updatedUser.getEmail() != null) {
+            existingUser.setEmail(updatedUser.getEmail());
+        }
+
+        return userRepository.save(existingUser);
+    }
+
 }
