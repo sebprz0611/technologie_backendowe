@@ -363,6 +363,47 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8081/v1/trainings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/v1/trainings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"trainings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/v1/trainings/6",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/v1/trainings/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"trainings",
+						"6"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
