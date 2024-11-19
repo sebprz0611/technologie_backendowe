@@ -18,15 +18,20 @@ public class TrainingService {
     private final TrainingRepository trainingRepository; // Repozytorium do pobierania danych z bazy
 
     // Metoda zwracająca wszystkie treningi
-    public List<Training> getAllTrainings() {
-        return trainingRepository.findAll(); // Zwracamy wszystkie treningi z bazy
+    public List<TrainingDto> getAllTrainings() {
+        return trainingRepository.findAll()
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     // Metoda zwracająca treningi dla określonego użytkownika
-    public List<Training> getTrainingsByUserId(Long userId) {
-        return trainingRepository.findByUserId(userId); // Zwracamy treningi użytkownika o podanym ID
+    public List<TrainingDto> getTrainingsByUserId(Long userId) {
+        return trainingRepository.findByUserId(userId)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
-
 
     // Metoda zwracająca treningi zakończone po konkretnej dacie
     public List<TrainingDto> getTrainingsEndedAfter(String afterTime) throws ParseException {
@@ -64,3 +69,4 @@ public class TrainingService {
         );
     }
 }
+
