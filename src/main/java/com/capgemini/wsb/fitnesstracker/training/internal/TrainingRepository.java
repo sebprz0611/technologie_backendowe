@@ -15,4 +15,8 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
     // Metoda zwracająca treningi zakończone po konkretnej dacie
     @Query("SELECT t FROM Training t WHERE t.endTime > :date")
     List<Training> findTrainingsEndedAfter(@Param("date") Date date);
+
+    // Metoda zwracająca treningi po konkretnej aktywności
+    @Query("SELECT t FROM Training t WHERE t.activityType = :activityType")
+    List<Training> findByActivityType(@Param("activityType") ActivityType activityType);
 }

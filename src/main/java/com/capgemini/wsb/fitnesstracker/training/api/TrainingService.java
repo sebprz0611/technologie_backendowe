@@ -1,6 +1,7 @@
 package com.capgemini.wsb.fitnesstracker.training.api;
 
 import com.capgemini.wsb.fitnesstracker.training.internal.TrainingRepository;
+import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.text.ParseException;
@@ -33,6 +34,14 @@ public class TrainingService {
         Date date = sdf.parse(afterTime);
 
         return trainingRepository.findTrainingsEndedAfter(date)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    // Metoda zwracająca treningi po konkretnej aktywności
+    public List<TrainingDto> getTrainingsByActivityType(ActivityType activityType) {
+        return trainingRepository.findByActivityType(activityType)
                 .stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());

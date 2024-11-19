@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import java.text.ParseException;
 
 import java.util.List;
@@ -42,6 +43,12 @@ public class TrainingController {
     @GetMapping("/finished/{afterTime}")
     public List<TrainingDto> getTrainingsEndedAfter(@PathVariable String afterTime) throws ParseException {
         return trainingService.getTrainingsEndedAfter(afterTime);
+    }
+
+    // Metoda zwracająca treningi po konkretnej aktywności
+    @GetMapping("/activityType")
+    public List<TrainingDto> getTrainingsByActivityType(@RequestParam ActivityType activityType) {
+        return trainingService.getTrainingsByActivityType(activityType);
     }
 
     private TrainingDto convertToDto(Training training) {
