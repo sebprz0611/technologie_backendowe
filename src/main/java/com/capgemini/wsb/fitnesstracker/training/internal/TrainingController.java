@@ -1,4 +1,5 @@
 package com.capgemini.wsb.fitnesstracker.training.internal;
+
 import com.capgemini.wsb.fitnesstracker.training.api.Training;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingService;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingDto;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.text.ParseException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +36,12 @@ public class TrainingController {
         return trainings.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    // Metoda zwracająca treningi zakończone po konkretnej dacie
+    @GetMapping("/finished/{afterTime}")
+    public List<TrainingDto> getTrainingsEndedAfter(@PathVariable String afterTime) throws ParseException {
+        return trainingService.getTrainingsEndedAfter(afterTime);
     }
 
     private TrainingDto convertToDto(Training training) {
