@@ -3,7 +3,9 @@ package com.capgemini.wsb.fitnesstracker.training.internal;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingService;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
@@ -38,6 +40,13 @@ public class TrainingController {
     @GetMapping("/activityType")
     public List<TrainingDto> getTrainingsByActivityType(@RequestParam ActivityType activityType) {
         return trainingService.getTrainingsByActivityType(activityType);
+    }
+
+    // Metoda do tworzenia nowego treningu
+    @PostMapping
+    public ResponseEntity<TrainingDto> createTraining(@RequestBody TrainingDto trainingDto) {
+        TrainingDto createdTraining = trainingService.createTraining(trainingDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTraining);
     }
 }
 
