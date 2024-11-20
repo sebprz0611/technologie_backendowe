@@ -77,6 +77,36 @@ public class TrainingService {
         return convertToDto(savedTraining);
     }
 
+    // Metoda do aktualizowania treningu
+    public TrainingDto updateTraining(Long trainingId, UpdateTrainingRequest request) {
+        // Znajdź istniejący trening w bazie
+        Training training = trainingRepository.findById(trainingId)
+                .orElseThrow(() -> new RuntimeException("Training not found"));
+
+        // Aktualizuj dane treningu na podstawie requestu
+        if (request.getStartTime() != null) {
+            training.setStartTime(request.getStartTime());
+        }
+        if (request.getEndTime() != null) {
+            training.setEndTime(request.getEndTime());
+        }
+        if (request.getActivityType() != null) {
+            training.setActivityType(request.getActivityType());
+        }
+        if (request.getDistance() != null) {
+            training.setDistance(request.getDistance());
+        }
+        if (request.getAverageSpeed() != null) {
+            training.setAverageSpeed(request.getAverageSpeed());
+        }
+
+        // Zapisz zaktualizowany trening w bazie
+        Training updatedTraining = trainingRepository.save(training);
+
+        // Zwróć zaktualizowany DTO
+        return convertToDto(updatedTraining);
+    }
+
     // Metoda do konwersji z obiektu Training na TrainingDto
     private TrainingDto convertToDto(Training training) {
         return new TrainingDto(
@@ -94,4 +124,6 @@ public class TrainingService {
                 training.getAverageSpeed()
         );
     }
+
+
 }

@@ -2,8 +2,6 @@ package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
@@ -128,5 +126,7 @@ class UserController {
         UserDto userDto = userMapper.toDto(user);
         return ResponseEntity.ok(userDto);
     }
+
+
 
 }

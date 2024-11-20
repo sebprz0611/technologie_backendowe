@@ -2,6 +2,7 @@ package com.capgemini.wsb.fitnesstracker.training.internal;
 
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingService;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingDto;
+import com.capgemini.wsb.fitnesstracker.training.api.UpdateTrainingRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,13 @@ public class TrainingController {
     public ResponseEntity<TrainingDto> createTraining(@RequestBody TrainingDto trainingDto) {
         TrainingDto createdTraining = trainingService.createTraining(trainingDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTraining);
+    }
+
+    // Metoda do aktualizowanai treningu
+    @PutMapping("/{trainingId}")
+    public ResponseEntity<TrainingDto> updateTraining(@PathVariable Long trainingId, @RequestBody UpdateTrainingRequest request) {
+        TrainingDto updatedTraining = trainingService.updateTraining(trainingId, request);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedTraining);
     }
 }
 
