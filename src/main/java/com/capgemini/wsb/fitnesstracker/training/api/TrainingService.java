@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.capgemini.wsb.fitnesstracker.training.api.CreateTrainingRequest;
-import com.capgemini.wsb.fitnesstracker.training.api.UpdateTrainingRequest;
 
 
 @Service
@@ -54,20 +52,6 @@ public class TrainingService {
                 .collect(Collectors.toList());
     }
 
-     // Utworzenie nowego treningu
-     public TrainingDto createTraining(CreateTrainingRequest request) {
-        Training training = new Training(
-            request.getUser(),
-            request.getStartTime(),
-            request.getEndTime(),
-            request.getActivityType(),
-            request.getDistance(),
-            request.getAverageSpeed()
-        );
-        Training savedTraining = trainingRepository.save(training);
-        return convertToDto(savedTraining);
-    }
-
     private TrainingDto convertToDto(Training training) {
         return new TrainingDto(
                 training.getId(),
@@ -83,24 +67,6 @@ public class TrainingService {
                 training.getDistance(),
                 training.getAverageSpeed()
         );
-    }
-    public TrainingDto updateTraining(Long trainingId, UpdateTrainingRequest request) {
-        Training training = trainingRepository.findById(trainingId)
-                .orElseThrow(() -> new IllegalArgumentException("Training not found"));
-    
-        // Zaktualizuj pole, jeśli zostało dostarczone
-        if (request.getDistance() != null) {
-            training.setDistance(request.getDistance());
-        }
-        if (request.getAverageSpeed() != null) {
-            training.setAverageSpeed(request.getAverageSpeed());
-        }
-    
-        // Możesz dodać inne pola do zaktualizowania tutaj
-    
-        // Zapisz zaktualizowany trening
-        Training updatedTraining = trainingRepository.save(training);
-        return convertToDto(updatedTraining);
     }
 }
 
