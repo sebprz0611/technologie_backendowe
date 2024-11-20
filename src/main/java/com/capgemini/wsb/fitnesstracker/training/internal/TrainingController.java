@@ -39,12 +39,5 @@ public class TrainingController {
     public List<TrainingDto> getTrainingsByActivityType(@RequestParam ActivityType activityType) {
         return trainingService.getTrainingsByActivityType(activityType);
     }
-
-    // Metoda tworzenia nowego treningu
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public TrainingDto createTraining(@RequestBody TrainingDto trainingDto) {
-        return trainingService.createTraining(trainingDto);
-    }
 }
 
