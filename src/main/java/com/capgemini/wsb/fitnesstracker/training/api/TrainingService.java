@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.capgemini.wsb.fitnesstracker.training.api.CreateTrainingRequest; //Dodane importy
-import com.capgemini.wsb.fitnesstracker.training.api.UpdateTrainingRequest; //Dodane importy
+import com.capgemini.wsb.fitnesstracker.training.api.CreateTrainingRequest;
+import com.capgemini.wsb.fitnesstracker.training.api.UpdateTrainingRequest;
 
 
 @Service

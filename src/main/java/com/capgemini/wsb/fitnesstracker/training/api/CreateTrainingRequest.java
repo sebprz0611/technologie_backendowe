@@ -2,9 +2,9 @@ package com.capgemini.wsb.fitnesstracker.training.api;
 
 import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
-import lombok.Data; //import 
+import lombok.Data;
 
-import java.util.Date; //import
+import java.util.Date;
 
 @Data
 public class CreateTrainingRequest {
