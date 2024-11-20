@@ -1,9 +1,10 @@
 package com.capgemini.wsb.fitnesstracker.user.api;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -12,25 +13,29 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "users")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Nullable
     private Long id;
 
     @Column(name = "first_name", nullable = false)
+    @NotNull
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @NotNull
     private String lastName;
 
     @Column(name = "birthdate", nullable = false)
+    @NotNull
     private LocalDate birthdate;
 
     @Column(nullable = false, unique = true)
+    @NotNull
     private String email;
 
 
@@ -45,47 +50,6 @@ public class User {
         this.birthdate = birthdate;
         this.email = email;
 
-    }
-
-    // Gettery i settery
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(LocalDate birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
 

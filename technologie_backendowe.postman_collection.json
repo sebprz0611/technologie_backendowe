@@ -111,7 +111,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/v1/users/search?birthdate=1996-10-25",
+					"raw": "http://localhost:8081/v1/users/search?birthdate=1996-11-20",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -125,7 +125,7 @@
 					"query": [
 						{
 							"key": "birthdate",
-							"value": "1996-10-25"
+							"value": "1996-11-20"
 						}
 					]
 				}
@@ -349,7 +349,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/v1/users/11\n",
+					"raw": "http://localhost:8081/v1/users/9\n",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -358,7 +358,7 @@
 					"path": [
 						"v1",
 						"users",
-						"11\n"
+						"9\n"
 					]
 				}
 			},
@@ -478,6 +478,36 @@
 					"path": [
 						"v1",
 						"trainings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/v1/trainings/10",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startTime\": \"2024-01-20T10:00:00\",\r\n  \"endTime\": \"2024-01-20T11:00:00\",\r\n  \"activityType\": \"CYCLING\",\r\n  \"distance\": 30.0,\r\n  \"averageSpeed\": 25.0\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/v1/trainings/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"trainings",
+						"10"
 					]
 				}
 			},
