@@ -15,7 +15,7 @@ public class TrainingDto {
     private Long id; // ID treningu
 
     @NotNull
-    private UserDto user; // Pełny obiekt użytkownika (możesz stworzyć specjalny UserDto)
+    private UserDto user; // Pełny obiekt użytkownika
 
     @NotNull
     private Date startTime; // Czas rozpoczęcia treningu
